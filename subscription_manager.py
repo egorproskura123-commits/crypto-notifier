@@ -55,6 +55,8 @@ def start_subscription(code, coin, interval, app):
 
 def stop_subscription(code):
 
+    users = get_users()
+
     for chat_id, user in users.items():
 
         if user["code"] == code:
@@ -66,6 +68,10 @@ def stop_subscription(code):
                 del jobs[chat_id]
 
             user["running"] = False
+
+            save_users(users)
+
+            print("Подписка остановлена")
 
             return True
 
