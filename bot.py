@@ -47,6 +47,5 @@ def run_bot():
     print("Бот запущен")
 
     telegram_app.run_polling(
-        drop_pending_updates=True,
-        stop_signals=None
+        drop_pending_updates=True
     )

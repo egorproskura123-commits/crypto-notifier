@@ -1,31 +1,17 @@
 from flask import Flask, render_template, request, jsonify
-import threading
-import time
+
 from subscription_manager import (
     start_subscription,
     stop_subscription
 )
 
-
 import bot
 
+
 app = Flask(__name__)
-print("APP VERSION 2")
 
-def start_bot():
+print("APP VERSION WEB ONLY")
 
-    bot_thread = threading.Thread(
-        target=bot.run_bot,
-        daemon=True
-    )
-
-    bot_thread.start()
-
-    while bot.telegram_app is None:
-        time.sleep(0.1)
-
-
-#start_bot()
 
 @app.route("/")
 def index():
@@ -52,6 +38,8 @@ def start():
         return jsonify({"status": "ok"})
 
     return jsonify({"status": "error"})
+
+
 @app.route("/stop", methods=["POST"])
 def stop():
 
@@ -65,11 +53,3 @@ def stop():
         return jsonify({"status": "ok"})
 
     return jsonify({"status": "error"})
-
-if __name__ == "__main__":
-
-    app.run(
-        host="0.0.0.0",
-        port=5000,
-        debug=False
-    )
