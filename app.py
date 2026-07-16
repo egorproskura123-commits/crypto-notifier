@@ -25,7 +25,7 @@ def start_bot():
         time.sleep(0.1)
 
 
-start_bot()
+#start_bot()
 
 @app.route("/")
 def index():
