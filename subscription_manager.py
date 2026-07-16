@@ -3,7 +3,7 @@ from price_service import get_price
 from jobs import jobs
 
 async def send_price(context):
-
+    print("=== SEND_PRICE ЗАПУЩЕН ===")
     print("SEND_PRICE START")
 
     data = context.job.data
@@ -45,7 +45,10 @@ def start_subscription(code, coin, interval, app):
             save_users(users)
             if chat_id in jobs:
                 jobs[chat_id].schedule_removal()
-
+            print("Создаем job")
+            print("interval:", interval)
+            print("chat_id:", chat_id)
+            print("coin:", coin)
             job = app.job_queue.run_repeating(
                 send_price,
                 interval=interval,
