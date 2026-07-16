@@ -1,76 +1,82 @@
-console.log("JS работает");
-const button = document.getElementById("startButton");
+const startButton = document.getElementById("startButton");
+const stopButton = document.getElementById("stopBtn");
 
-button.addEventListener("click", async function () {
+const status = document.getElementById("status");
 
-    const code = document.getElementById("code").value;
 
-    const coin = document.getElementById("coin").value;
+startButton.onclick = async () => {
 
-    const interval = document.getElementById("interval").value;
+    const data = {
+        code: document.getElementById("code").value,
+        coin: document.getElementById("coin").value,
+        interval: document.getElementById("interval").value
+    };
+
 
     const response = await fetch("/start", {
 
-        method: "POST",
+        method:"POST",
 
-        headers: {
-            "Content-Type": "application/json"
+        headers:{
+            "Content-Type":"application/json"
         },
 
-        body: JSON.stringify({
-
-            code: code,
-
-            coin: coin,
-
-            interval: interval
-
-        })
-
+        body:JSON.stringify(data)
     });
+
 
     const result = await response.json();
 
-    const status = document.getElementById("status");
 
     if(result.status === "ok"){
 
-        status.innerText = "🟢 Подписка успешно запущена!";
+        status.innerHTML = "✅ Подписка запущена";
+
+    }else{
+
+        status.innerHTML = "❌ Код не найден";
 
     }
 
-    else{
+};
 
-        status.innerText = "🔴 Код не найден.";
 
-    }
 
-});
-document
-    .getElementById("stopBtn")
-    .onclick = async () => {
+stopButton.onclick = async () => {
 
-    const code =
-        document.getElementById("code").value;
+
+    const data = {
+
+        code: document.getElementById("code").value
+
+    };
+
 
     const response = await fetch("/stop", {
 
-        method: "POST",
+        method:"POST",
 
-        headers: {
-            "Content-Type": "application/json"
+        headers:{
+            "Content-Type":"application/json"
         },
 
-        body: JSON.stringify({
-            code: code
-        })
+        body:JSON.stringify(data)
+
     });
 
-    const data = await response.json();
 
-    if (data.status === "ok")
-        alert("Подписка остановлена!");
+    const result = await response.json();
 
-    else
-        alert("Неверный код");
-}
+
+    if(result.status === "ok"){
+
+        status.innerHTML = "🛑 Уведомления остановлены";
+
+    }else{
+
+        status.innerHTML = "❌ Код не найден";
+
+    }
+
+
+};

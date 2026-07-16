@@ -4,10 +4,10 @@ import requests
 def get_price(coin):
 
     prices = {
-        "BTC": "BTCUSDT",
-        "ETH": "ETHUSDT",
-        "SOL": "SOLUSDT",
-        "XRP": "XRPUSDT"
+        "BTCUSDT": "BTCUSDT",
+        "ETHUSDT": "ETHUSDT",
+        "SOLUSDT": "SOLUSDT",
+        "XRPUSDT": "XRPUSDT"
     }
 
     symbol = prices[coin]

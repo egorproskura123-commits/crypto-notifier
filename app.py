@@ -51,4 +51,21 @@ def stop():
 
 if __name__ == "__main__":
 
-    app.run(debug=True, use_reloader=False)
+    import threading
+    import time
+
+    bot_thread = threading.Thread(
+        target=bot.run_bot,
+        daemon=True
+    )
+
+    bot_thread.start()
+
+    while bot.telegram_app is None:
+        time.sleep(0.1)
+
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=False
+    )

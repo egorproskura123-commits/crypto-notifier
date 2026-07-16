@@ -1,13 +1,14 @@
 from telegram.ext import Application, CommandHandler
 from utils import generate_code
 from config import TOKEN
-from users import users
+from users import get_users, save_users
 import os
 async def error_handler(update, context):
     print("Ошибка Telegram:", context.error)
 
 telegram_app = None
 async def start(update, context):
+    users = get_users()
     chat_id = update.effective_chat.id
     username = update.effective_user.username
     if chat_id not in users:
@@ -20,6 +21,7 @@ async def start(update, context):
             "interval": None,
             "running": False
         }
+        save_users(users)
     code = users[chat_id]["code"]
     print(users)
 

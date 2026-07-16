@@ -1,4 +1,4 @@
-from users import users
+from users import get_users, save_users
 from price_service import get_price
 from jobs import jobs
 
@@ -21,7 +21,7 @@ async def send_price(context):
 
 
 def start_subscription(code, coin, interval, app):
-
+    users = get_users()
     for chat_id, user in users.items():
 
         if user["code"] == code:
@@ -29,7 +29,7 @@ def start_subscription(code, coin, interval, app):
             user["coin"] = coin
             user["interval"] = interval
             user["running"] = True
-
+            save_users(users)
             if chat_id in jobs:
                 jobs[chat_id].schedule_removal()
 
