@@ -4,20 +4,33 @@ from jobs import jobs
 
 async def send_price(context):
 
+    print("SEND_PRICE START")
+
     data = context.job.data
 
     chat_id = data["chat_id"]
     coin = data["coin"]
 
-    price = get_price(coin)
+    print("CHAT:", chat_id)
+    print("COIN:", coin)
 
-    await context.bot.send_message(
-        chat_id=chat_id,
-        text=(
-            f"🟠 {coin}\n\n"
-            f"💰 Цена: {price} USDT"
+    try:
+        price = get_price(coin)
+
+        print("PRICE:", price)
+
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text=(
+                f"🟠 {coin}\n\n"
+                f"💰 Цена: {price} USDT"
+            )
         )
-    )
+
+        print("MESSAGE SENT")
+
+    except Exception as e:
+        print("SEND ERROR:", e)
 
 
 def start_subscription(code, coin, interval, app):
