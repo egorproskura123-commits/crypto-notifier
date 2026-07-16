@@ -10,6 +10,7 @@ from subscription_manager import (
 import bot
 
 app = Flask(__name__)
+print("APP VERSION 2")
 
 def start_bot():
 
